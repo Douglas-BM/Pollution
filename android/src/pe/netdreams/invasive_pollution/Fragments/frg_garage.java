@@ -24,6 +24,7 @@ import pe.netdreams.invasive_pollution.Model.Ammo;
 import pe.netdreams.invasive_pollution.Model.Nave;
 import pe.netdreams.invasive_pollution.R;
 import pe.netdreams.invasive_pollution.Utils.Constans;
+import pe.netdreams.invasive_pollution.Utils.DataBase;
 import pe.netdreams.invasive_pollution.Utils.SharedPreferencesManager;
 import pe.netdreams.invasive_pollution.listener.RecyclerItemClickListener;
 
@@ -48,17 +49,7 @@ public class frg_garage extends Fragment {
         rvAmmos = view.findViewById(R.id.rvAmmos);
         ivnave = view.findViewById(R.id.ivnave);
 
-        list_naves = new ArrayList<>();
-
-        list_naves.add(new Nave(0,"H2151-1", R.drawable.nave1, 1000,50,10, 50000));
-        list_naves.add(new Nave(1,"H2SAD-2", R.drawable.nave2, 2000,55,11, 50000));
-        list_naves.add(new Nave(2,"JTRY5-3", R.drawable.nave3, 3000,60,12, 50000));
-        list_naves.add(new Nave(3,"JSZEN-4", R.drawable.nave4, 4000,65,13, 50000));
-        list_naves.add(new Nave(4,"ZVAVV-5", R.drawable.nave5, 5000,70,14, 50000));
-        list_naves.add(new Nave(5,"GWAWG-5", R.drawable.nave6, 6000,75,15, 50000));
-        list_naves.add(new Nave(6,"BDFDB-5", R.drawable.nave7, 7000,80,16, 50000));
-        list_naves.add(new Nave(7,"UYOER-5", R.drawable.nave8, 8000,85,17, 50000));
-        list_naves.add(new Nave(8,"PJDFF-5", R.drawable.nave9, 9000,90,18, 50000));
+        list_naves = DataBase.getNaves(getContext());
 
         NaveAdapter naveAdapter = new NaveAdapter(list_naves, getContext());
 
@@ -93,13 +84,7 @@ public class frg_garage extends Fragment {
             })
         );
 
-        list_ammos = new ArrayList<>();
-
-        list_ammos.add(new Ammo(0, "Clasic", R.drawable.ic_ammo_1, 100, 100000));
-        list_ammos.add(new Ammo(1, "Blindada", R.drawable.ic_ammo_2, 200, 100000));
-        list_ammos.add(new Ammo(2, "Perforante", R.drawable.ic_ammo_3, 300, 100000));
-        list_ammos.add(new Ammo(3, "Atomica", R.drawable.ic_ammo_4, 400, 100000));
-        list_ammos.add(new Ammo(4, "Lazer", R.drawable.ic_ammo_5, 500, 100000));
+        list_ammos = DataBase.getAmmos(getContext());
 
         AmmoAdapter ammoAdapter = new AmmoAdapter(list_ammos, getContext());
 
