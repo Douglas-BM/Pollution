@@ -19,8 +19,10 @@ import com.daimajia.androidanimations.library.YoYo;
 import java.util.ArrayList;
 
 import pe.netdreams.invasive_pollution.Adapters.AmmoAdapter;
+import pe.netdreams.invasive_pollution.Adapters.GunAdapter;
 import pe.netdreams.invasive_pollution.Adapters.NaveAdapter;
 import pe.netdreams.invasive_pollution.Model.Ammo;
+import pe.netdreams.invasive_pollution.Model.Gun;
 import pe.netdreams.invasive_pollution.Model.Nave;
 import pe.netdreams.invasive_pollution.R;
 import pe.netdreams.invasive_pollution.Utils.Constans;
@@ -29,11 +31,12 @@ import pe.netdreams.invasive_pollution.Utils.SharedPreferencesManager;
 import pe.netdreams.invasive_pollution.listener.RecyclerItemClickListener;
 
 public class frg_garage extends Fragment {
-    RecyclerView rvNaves,rvAmmos;
+    RecyclerView rvNaves, rvAmmos, rvGuns;
     ImageView ivnave;
     TextView tvblindage, tvvida, tvcadencia, tvdamage;
     ArrayList<Nave> list_naves;
     ArrayList<Ammo> list_ammos;
+    ArrayList<Gun> list_gun;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class frg_garage extends Fragment {
 
         rvNaves = view.findViewById(R.id.rvNaves);
         rvAmmos = view.findViewById(R.id.rvAmmos);
+        rvGuns = view.findViewById(R.id.rvGuns);
+
         ivnave = view.findViewById(R.id.ivnave);
 
         list_naves = DataBase.getNaves(getContext());
@@ -108,6 +113,30 @@ public class frg_garage extends Fragment {
             })
         );
 
+        list_gun = DataBase.getGuns(getContext());
+
+        GunAdapter gunAdapter = new GunAdapter(list_gun, getContext());
+
+        rvGuns.setAdapter(gunAdapter);
+
+        rvGuns.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), rvGuns, new RecyclerItemClickListener.OnItemClickListener() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        SharedPreferencesManager.setIntValue(getContext(), Constans.GUN_SET, list_gun.get(position).getId());
+                        gunAdapter.notifyDataSetChanged();
+                        YoYo.with(Techniques.Swing)
+                                .duration(500)
+                                .playOn(ivnave);
+                        getStats();
+                    }
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+                })
+        );
+
         ivnave.setImageResource(list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getRecurso());
         rvNaves.scrollToPosition(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)-1);
 
@@ -120,6 +149,8 @@ public class frg_garage extends Fragment {
         tvblindage.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getBlindaje());
         tvvida.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getVida());
         tvcadencia.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getCadencia());
-        tvdamage.setText(""+list_ammos.get(SharedPreferencesManager.getIntValue(getContext(), Constans.AMMO_SET)).getDamage());
+        tvdamage.setText(""+
+                (list_ammos.get(SharedPreferencesManager.getIntValue(getContext(), Constans.AMMO_SET)).getDamage()+
+                list_gun.get(SharedPreferencesManager.getIntValue(getContext(), Constans.GUN_SET)).getDamage()));
     }
 }

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo"
+    tools:context=".Fragments.frg_home">
+    <LinearLayout
+        android:id="@+id/contEquipo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rectangulo_bottom_gray_dark"
+        android:gravity="center_horizontal|center_vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangulo_bottom_red"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="INICIO"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15dp"
+            android:layout_marginHorizontal="30dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:background="@drawable/rectangulo_gray"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivammo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_ammo_1" />
+
+                <TextView
+                    android:id="@+id/tvammo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray"
+                    android:gravity="center"
+                    android:text="nombre"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:background="@drawable/rectangulo_gray"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivgun"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_gun_1" />
+
+                <TextView
+                    android:id="@+id/tvgun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray"
+                    android:gravity="center"
+                    android:text="nombre"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivnave"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_above="@id/contDetalle"
+        android:layout_below="@id/contEquipo"
+        android:src="@drawable/nave" />
+
+    <LinearLayout
+        android:id="@+id/contDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:background="@drawable/rectangulo_top_gray_dark"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btnplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangulo_red"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="20dp"
+            android:text="PLAY"
+            android:drawableLeft="@drawable/ic_play"
+            android:drawableTint="@color/black"
+            android:drawablePadding="2dp"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvblindage"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/rectangulo_gray"
+                android:drawableTop="@drawable/ic_blindaje"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="100"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvvida"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/rectangulo_gray"
+                android:drawableTop="@drawable/ic_vida"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="100"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvcadencia"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/rectangulo_gray"
+                android:drawableTop="@drawable/ic_cadencia"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="100"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvdamage"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/rectangulo_gray"
+                android:drawableTop="@drawable/ic_damage"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="100"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

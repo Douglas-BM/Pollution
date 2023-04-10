@@ -14,41 +14,41 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import pe.netdreams.invasive_pollution.Model.Ammo;
+import pe.netdreams.invasive_pollution.Model.Gun;
 import pe.netdreams.invasive_pollution.R;
 import pe.netdreams.invasive_pollution.Utils.Constans;
 import pe.netdreams.invasive_pollution.Utils.SharedPreferencesManager;
 
-public class AmmoAdapter extends RecyclerView.Adapter<AmmoAdapter.ViewHolder> {
+public class GunAdapter extends RecyclerView.Adapter<GunAdapter.ViewHolder> {
 
-    private ArrayList<Ammo> mValues;
+    private ArrayList<Gun> mValues;
     private Context ctx;
     private int equipado;
 
-    public AmmoAdapter(ArrayList<Ammo> mValues, Context ctx) {
+    public GunAdapter(ArrayList<Gun> mValues, Context ctx) {
         this.mValues = mValues;
         this.ctx = ctx;
     }
 
     @NonNull
     @Override
-    public AmmoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GunAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_ammo_list, parent, false);
-        return new AmmoAdapter.ViewHolder(view);
+                .inflate(R.layout.item_gun_list, parent, false);
+        return new GunAdapter.ViewHolder(view);
     }
 
     @SuppressLint("ResourceType")
     @Override
-    public void onBindViewHolder(@NonNull AmmoAdapter.ViewHolder holder, int position) {
-        this.equipado = SharedPreferencesManager.getIntValue(ctx, Constans.AMMO_SET);
+    public void onBindViewHolder(@NonNull GunAdapter.ViewHolder holder, int position) {
+        this.equipado = SharedPreferencesManager.getIntValue(ctx, Constans.GUN_SET);
         if(equipado == mValues.get(position).getId()){
             holder.crselected.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.red));
         }else {
             holder.crselected.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.gray));
         }
 
-        holder.lvammo.setImageResource(mValues.get(position).getRecurso());
+        holder.lvgun.setImageResource(mValues.get(position).getRecurso());
     }
 
     @Override
@@ -58,11 +58,11 @@ public class AmmoAdapter extends RecyclerView.Adapter<AmmoAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         CardView crselected;
-        ImageView lvammo;
+        ImageView lvgun;
         public ViewHolder(View view) {
             super(view);
             crselected = view.findViewById(R.id.crselected);
-            lvammo = view.findViewById(R.id.lvammo);
+            lvgun = view.findViewById(R.id.lvgun);
         }
 
     }

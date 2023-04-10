@@ -3,14 +3,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/gray"
+    android:background="@drawable/fondo"
     tools:context=".Fragments.frg_puntaje">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/contNaves"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rectangulo_bottom_gray_dark"
+        android:gravity="center_horizontal|center_vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangulo_bottom_red"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="PUNTAJE"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:padding="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/rectangulo_gray">
+            <ImageView
+                android:id="@+id/ivuser"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_player"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:id="@+id/tvnombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="USER"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/ivuser"/>
+            <TextView
+                android:id="@+id/tvttitlescore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Score : "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/ivuser"
+                android:layout_below="@id/tvnombre"/>
+            <TextView
+                android:id="@+id/tvscore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="1000"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_toRightOf="@id/tvttitlescore"
+                android:layout_below="@id/tvnombre"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRank"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Puntaje"
-        android:textSize="50sp"/>
+        android:layout_margin="10dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/item_rank_list" />
 
 </LinearLayout>

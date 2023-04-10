@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import pe.netdreams.invasive_pollution.Model.Ammo;
+import pe.netdreams.invasive_pollution.Model.Gun;
 import pe.netdreams.invasive_pollution.Model.Nave;
 import pe.netdreams.invasive_pollution.R;
 
@@ -15,6 +16,7 @@ public class MiDBHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     public static final String TBL_NAVE = "tblNave";
     public static final String TBL_AMMO = "tblAmmo";
+    public static final String TBL_GUN = "tblGun";
     private static final String DATABASE_NAME = "DBINVASIVE.db";
 
     public MiDBHelper(Context context) {
@@ -33,6 +35,13 @@ public class MiDBHelper extends SQLiteOpenHelper {
                 "precio INTEGER" +
                 ")");
         db.execSQL("CREATE TABLE tblAmmo (" +
+                "id INTEGER PRIMARY KEY, " +
+                "nombre TEXT," +
+                "recurso INTEGER," +
+                "damage INTEGER," +
+                "precio INTEGER" +
+                ")");
+        db.execSQL("CREATE TABLE tblGun (" +
                 "id INTEGER PRIMARY KEY, " +
                 "nombre TEXT," +
                 "recurso INTEGER," +
@@ -65,6 +74,12 @@ public class MiDBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO tblAmmo VALUES (2, 'Perforante'," + R.drawable.ic_ammo_3 + ", 300, 100000)");
         db.execSQL("INSERT INTO tblAmmo VALUES (3, 'Atomica'," + R.drawable.ic_ammo_4 + ", 400, 100000)");
         db.execSQL("INSERT INTO tblAmmo VALUES (4, 'Lazer',"+ R.drawable.ic_ammo_5 + ", 500, 100000)");
+
+        db.execSQL("INSERT INTO tblGun VALUES (0, 'GUN 1'," + R.drawable.ic_gun_1 + ", 100, 10000)");
+        db.execSQL("INSERT INTO tblGun VALUES (1, 'GUN 2'," + R.drawable.ic_gun_2 + ", 200, 10000)");
+        db.execSQL("INSERT INTO tblGun VALUES (2, 'GUN 3'," + R.drawable.ic_gun_3 + ", 300, 10000)");
+        db.execSQL("INSERT INTO tblGun VALUES (3, 'GUN 4'," + R.drawable.ic_gun_4 + ", 400, 10000)");
+        db.execSQL("INSERT INTO tblGun VALUES (4, 'GUN 5'," + R.drawable.ic_gun_5 + ", 500, 10000)");
     }
 
     public ArrayList<Nave> getNaves() {
@@ -105,7 +120,7 @@ public class MiDBHelper extends SQLiteOpenHelper {
         ArrayList<Ammo> listaAmmo = new ArrayList<>();
 
         String[] columnas = {"id", "nombre", "recurso", "damage", "precio"};
-        Cursor cursor = db.query("tblAmmo", columnas, null, null, null, null, null);
+        Cursor cursor = db.query(TBL_AMMO, columnas, null, null, null, null, null);
 
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
@@ -120,12 +135,32 @@ public class MiDBHelper extends SQLiteOpenHelper {
         cursor.close();
         return listaAmmo;
     }
+    public ArrayList<Gun> getGuns() {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Gun> listaAmmo = new ArrayList<>();
+
+        String[] columnas = {"id", "nombre", "recurso", "damage", "precio"};
+        Cursor cursor = db.query(TBL_GUN, columnas, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String nombre = cursor.getString(1);
+            int recurso = cursor.getInt(2);
+            int damage = cursor.getInt(3);
+            int precio = cursor.getInt(4);
+
+            listaAmmo.add(new Gun(id, nombre, recurso, damage, precio));
+        }
+
+        cursor.close();
+        return listaAmmo;
+    }
 
     public Nave getNaveById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(
-                "tblNave",
+                TBL_NAVE,
                 new String[]{"id", "nombre", "recurso", "blindaje", "vida", "cadencia", "precio"},
                 "id = ?",
                 new String[]{String.valueOf(id)},
@@ -156,7 +191,7 @@ public class MiDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(
-                "tblAmmo",
+                TBL_AMMO,
                 new String[]{"id", "nombre", "recurso", "damage", "precio"},
                 "id = ?",
                 new String[]{String.valueOf(id)},
@@ -181,5 +216,32 @@ public class MiDBHelper extends SQLiteOpenHelper {
         return ammo;
     }
 
+    public Gun getGunById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
 
+        Cursor cursor = db.query(
+                TBL_GUN,
+                new String[]{"id", "nombre", "recurso", "damage", "precio"},
+                "id = ?",
+                new String[]{String.valueOf(id)},
+                null,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Gun gun = new Gun(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getInt(2),
+                cursor.getInt(3),
+                cursor.getInt(4)
+        );
+
+        cursor.close();
+        return gun;
+    }
 }
