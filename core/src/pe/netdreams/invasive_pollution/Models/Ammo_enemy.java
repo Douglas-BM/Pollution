@@ -1,0 +1,42 @@
+package pe.netdreams.invasive_pollution.Models;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+
+import pe.netdreams.invasive_pollution.MainGame;
+
+public class Ammo_enemy {
+
+    public Vector2 position;
+    public Texture src;
+    public Sprite sprite;
+    public float speed_bullet;
+    public boolean exist = true;
+
+    public Ammo_enemy(float x, float y) {
+        sprite = new Sprite(MainGame.img_bullet_enemy);
+        src = MainGame.img_bullet_enemy;
+        speed_bullet = Enemy.speed*4;
+        sprite.setSize(sprite.getWidth()*.5f, sprite.getHeight()*.5f);
+        position = new Vector2(x + sprite.getWidth()/2,y + sprite.getHeight()/2);
+    }
+
+
+    public void update(){
+        if(position.y > 0) {
+            position.y -= speed_bullet;
+        }else{
+            exist = false;
+        }
+    }
+
+
+    public void Draw(SpriteBatch batch){
+        update();
+        sprite.setPosition(position.x, position.y);
+        sprite.draw(batch);
+    }
+}

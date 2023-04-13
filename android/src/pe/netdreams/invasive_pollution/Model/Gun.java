@@ -6,13 +6,23 @@ public class Gun {
     public int recurso;
     public int damage;
     public int precio;
+    public int estado;
 
-    public Gun(int id, String nombre, int recurso, int damage, int precio) {
+    public Gun(int id, String nombre, int recurso, int damage, int precio, int estado) {
         this.id = id;
         this.nombre = nombre;
         this.recurso = recurso;
         this.damage = damage;
         this.precio = precio;
+        this.estado = estado;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     public int getId() {

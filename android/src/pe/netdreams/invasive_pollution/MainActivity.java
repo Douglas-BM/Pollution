@@ -3,7 +3,6 @@ package pe.netdreams.invasive_pollution;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -13,17 +12,24 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+
+import java.util.Objects;
 
 import pe.netdreams.invasive_pollution.Fragments.frg_garage;
 import pe.netdreams.invasive_pollution.Fragments.frg_home;
 import pe.netdreams.invasive_pollution.Fragments.frg_puntaje;
+import pe.netdreams.invasive_pollution.Service.SongService;
 import pe.netdreams.invasive_pollution.Utils.Constans;
+import pe.netdreams.invasive_pollution.Utils.FirebaseManager;
 import pe.netdreams.invasive_pollution.Utils.SharedPreferencesManager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final int STATE_OUT = 1;
+    public static final int STATE_IN = 2;
+    public static final int STATE_PLAY = 3;
+    public static int STATE = STATE_IN;
     private LinearLayout btnpuntaje, btnplay, btngarage;
     private FrameLayout fragment_container;
     private TextView tvCoins;
@@ -33,6 +39,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(Objects.isNull(SharedPreferencesManager.getStringValue(this, Constans.ID_USER)))
+            FirebaseManager.saveData(this);
+
+        startService(new Intent(MainActivity.this, SongService.class));
 
         fragment_container = findViewById(R.id.fragment_container);
 
@@ -52,6 +63,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btngarage.setBackgroundResource(R.drawable.rectangulo_gray);
 
         setMenu(new frg_home());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(MainActivity.this, SongService.class));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopService(new Intent(MainActivity.this, SongService.class));
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startService(new Intent(MainActivity.this, SongService.class));
+        tvCoins.setText(""+ SharedPreferencesManager.getIntValue(this, Constans.TOTAL_COINS));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        startService(new Intent(MainActivity.this, SongService.class));
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -97,4 +134,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             })
             .playOn(fragment_container);
     }
+
 }

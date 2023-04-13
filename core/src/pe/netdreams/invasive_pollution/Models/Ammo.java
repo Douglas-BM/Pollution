@@ -21,12 +21,15 @@ public class Ammo {
         speed_bullet = 5;
         Sprite aux = MainGame.player.sprite;
         aux.setScale(1);
-        position_bullet = new Vector2(MainGame.player.position.x,aux.getHeight()/2);
-        sprite_bullet.setScale(.1f);
+        //sprite_bullet.setScale(.1f);
+        sprite_bullet.setSize(sprite_bullet.getWidth()*.1f, sprite_bullet.getHeight()*.1f);
+        position_bullet = new Vector2(MainGame.player.position.x+aux.getWidth()/2-sprite_bullet.getWidth()/2,aux.getHeight()*.8f);
     }
 
     public void update(){
-        position_bullet.y += speed_bullet;
+        if(position_bullet.y < Gdx.graphics.getHeight()) {
+            position_bullet.y += speed_bullet;
+        }
     }
 
     public void Draw(SpriteBatch batch){

@@ -5,19 +5,28 @@ public class Nave {
     public String nombre;
     public int recurso;
     public int blindaje;
-
     public int vida;
-    public int cadencia;
+    public int velocidad;
     public int precio;
+    public int estado;
 
-    public Nave(int id, String nombre, int recurso, int blindaje, int vida, int cadencia, int precio) {
+    public Nave(int id, String nombre, int recurso, int blindaje, int vida, int velocidad, int precio, int estado) {
         this.id = id;
         this.nombre = nombre;
         this.recurso = recurso;
         this.blindaje = blindaje;
         this.vida = vida;
-        this.cadencia = cadencia;
+        this.velocidad = velocidad;
         this.precio = precio;
+        this.estado = estado;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     public int getVida() {
@@ -28,12 +37,12 @@ public class Nave {
         this.vida = vida;
     }
 
-    public int getCadencia() {
-        return cadencia;
+    public int getVelocidad() {
+        return velocidad;
     }
 
-    public void setCadencia(int cadencia) {
-        this.cadencia = cadencia;
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
     }
 
     public int getId() {

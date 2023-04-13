@@ -18,26 +18,20 @@ public class Player {
     public Sprite sprite;
     public float speed;
 
-    public static ArrayList<Ammo> list_ammo;
+    public ArrayList<Ammo> list_ammo;
     public Player() {
         list_ammo = new ArrayList<>();
         sprite = new Sprite(MainGame.img);
         src = MainGame.img;
         speed = MainGame.speed;
-        x = Gdx.graphics.getWidth()/2-src.getWidth()/2;
+        sprite.setSize(sprite.getWidth()*2f,sprite.getHeight()*2f);
+        x = Gdx.graphics.getWidth()/2-sprite.getWidth()/2;
         y = 1;
         position = new Vector2(x,y);
-        sprite.setScale(1);
     }
 
     public void update(float deltatimes){
-        Gdx.input.setInputProcessor(new InputAdapter() {
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                list_ammo.add(new Ammo());
-                return true;
-            }
-        });
+
 
         float azimuth = Gdx.input.getAccelerometerX() / 10;;
         if (azimuth < 0) {
@@ -50,11 +44,29 @@ public class Player {
     }
     public void Draw(SpriteBatch batch){
         update(Gdx.graphics.getDeltaTime());
+
+        updateAmmos(batch);
+
+        deleteAmmos();
+
+        sprite.setPosition(position.x, position.y);
+        sprite.draw(batch);
+    }
+
+    public void updateAmmos(SpriteBatch batch){
         for (Ammo elemento : list_ammo) {
             elemento.Draw(batch);
             elemento.update();
         }
-        sprite.setPosition(position.x, position.y);
-        sprite.draw(batch);
+    }
+
+    public void deleteAmmos(){//si se salen de la pantalla
+        ArrayList<Ammo> ammoToRemove = new ArrayList<>();
+        for (Ammo ammo : list_ammo) {
+            if (ammo.position_bullet.y >= (Gdx.graphics.getHeight()-(MainGame.hec*2)-ammo.sprite_bullet.getHeight())) {
+                ammoToRemove.add(ammo);
+            }
+        }
+        list_ammo.removeAll(ammoToRemove);
     }
 }

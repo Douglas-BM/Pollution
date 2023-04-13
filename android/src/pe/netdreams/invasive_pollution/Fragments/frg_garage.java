@@ -148,7 +148,7 @@ public class frg_garage extends Fragment {
     public void getStats(){
         tvblindage.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getBlindaje());
         tvvida.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getVida());
-        tvcadencia.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getCadencia());
+        tvcadencia.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getVelocidad());
         tvdamage.setText(""+
                 (list_ammos.get(SharedPreferencesManager.getIntValue(getContext(), Constans.AMMO_SET)).getDamage()+
                 list_gun.get(SharedPreferencesManager.getIntValue(getContext(), Constans.GUN_SET)).getDamage()));

@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import android.app.Activity;
+
 import com.badlogic.gdx.backends.android.AndroidApplication;
 
 import pe.netdreams.invasive_pollution.AndroidLauncher;
+import pe.netdreams.invasive_pollution.MainActivity;
 import pe.netdreams.invasive_pollution.R;
 import pe.netdreams.invasive_pollution.Utils.Constans;
 import pe.netdreams.invasive_pollution.Utils.DataBase;
@@ -44,7 +47,7 @@ public class frg_home extends Fragment {
         btnplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToActivity(new AndroidLauncher());
+                goToActivity();
             }
         });
 
@@ -67,7 +70,7 @@ public class frg_home extends Fragment {
 
         tvblindage.setText(""+ DataBase.getNaveById(getContext(), nave).getBlindaje());
         tvvida.setText(""+ DataBase.getNaveById(getContext(), nave).getVida());
-        tvcadencia.setText(""+ DataBase.getNaveById(getContext(), nave).getCadencia());
+        tvcadencia.setText(""+ DataBase.getNaveById(getContext(), nave).getVelocidad());
         tvdamage.setText(""+(DataBase.getAmmoById(getContext(), ammo).getDamage()
                 +DataBase.getGunById(getContext(), gun).getDamage()));
 
@@ -79,8 +82,9 @@ public class frg_home extends Fragment {
         tvammo.setText(""+ DataBase.getAmmoById(getContext(), ammo).getNombre());
         tvgun.setText(""+ DataBase.getGunById(getContext(), gun).getNombre());
     }
-    public void goToActivity(AndroidApplication activity) {
-        Intent intent = new Intent(getContext(), activity.getClass());
+    public void goToActivity() {
+        AndroidLauncher launcher = new AndroidLauncher();
+        Intent intent = new Intent(getContext(), launcher.getClass());
         startActivity(intent);
     }
 }

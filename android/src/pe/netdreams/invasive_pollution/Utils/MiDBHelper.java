@@ -31,22 +31,27 @@ public class MiDBHelper extends SQLiteOpenHelper {
                 "recurso INTEGER," +
                 "blindaje INTEGER," +
                 "vida INTEGER," +
-                "cadencia INTEGER," +
-                "precio INTEGER" +
+                "velocidad FLOAT," +
+                "precio INTEGER," +
+                "estado INTEGER" +
                 ")");
+
         db.execSQL("CREATE TABLE tblAmmo (" +
                 "id INTEGER PRIMARY KEY, " +
                 "nombre TEXT," +
                 "recurso INTEGER," +
                 "damage INTEGER," +
-                "precio INTEGER" +
+                "precio INTEGER," +
+                "estado INTEGER" +
                 ")");
+
         db.execSQL("CREATE TABLE tblGun (" +
                 "id INTEGER PRIMARY KEY, " +
                 "nombre TEXT," +
                 "recurso INTEGER," +
                 "damage INTEGER," +
-                "precio INTEGER" +
+                "precio INTEGER," +
+                "estado INTEGER" +
                 ")");
 
         initDATA(db);
@@ -59,27 +64,23 @@ public class MiDBHelper extends SQLiteOpenHelper {
     }
 
     public void initDATA(SQLiteDatabase db){
-        db.execSQL("INSERT INTO tblNave VALUES (0, 'H2151-1', " + R.drawable.nave1 + ", 1000, 50, 10, 50000)");
-        db.execSQL("INSERT INTO tblNave VALUES (1, 'H2SAD-2', " + R.drawable.nave2 + ", 2000, 55, 11, 50000)");
-        db.execSQL("INSERT INTO tblNave VALUES (2, 'JTRY5-3', " + R.drawable.nave3 + ", 3000, 60, 12, 50000)");
-        db.execSQL("INSERT INTO tblNave VALUES (3, 'JSZEN-4', " + R.drawable.nave4 + ", 4000, 65, 13, 50000)");
-        db.execSQL("INSERT INTO tblNave VALUES (4, 'ZVAVV-5', " + R.drawable.nave5 + ", 5000, 70, 14, 50000)");
-        db.execSQL("INSERT INTO tblNave VALUES (5, 'GWAWG-5', " + R.drawable.nave6 + ", 6000, 75, 15, 50000)");
-        db.execSQL("INSERT INTO tblNave VALUES (6, 'BDFDB-5', " + R.drawable.nave7 + ", 7000, 80, 16, 50000)");
-        db.execSQL("INSERT INTO tblNave VALUES (7, 'UYOER-5', " + R.drawable.nave8 + ", 8000, 85, 17, 50000)");
-        db.execSQL("INSERT INTO tblNave VALUES (8, 'PJDFF-5', " + R.drawable.nave9 + ", 9000, 90, 18, 50000)");
+        db.execSQL("INSERT INTO tblNave VALUES (0, 'H2151-1', " + R.drawable.nave1 + ", 1000, 500, 120, 2000,0)");
+        db.execSQL("INSERT INTO tblNave VALUES (1, 'H2SAD-2', " + R.drawable.nave2 + ", 2000, 550, 130, 2500,1)");
+        db.execSQL("INSERT INTO tblNave VALUES (2, 'JTRY5-3', " + R.drawable.nave3 + ", 3000, 600, 140, 3000,1)");
+        db.execSQL("INSERT INTO tblNave VALUES (3, 'JSZEN-4', " + R.drawable.nave4 + ", 4000, 650, 150, 3500,1)");
+        db.execSQL("INSERT INTO tblNave VALUES (4, 'ZVAVV-5', " + R.drawable.nave5 + ", 5000, 700, 160, 4000,1)");
 
-        db.execSQL("INSERT INTO tblAmmo VALUES (0, 'Clasic', " + R.drawable.ic_ammo_1 + ", 100, 100000)");
-        db.execSQL("INSERT INTO tblAmmo VALUES (1, 'Blindada', " + R.drawable.ic_ammo_2 + ", 200, 100000)");
-        db.execSQL("INSERT INTO tblAmmo VALUES (2, 'Perforante'," + R.drawable.ic_ammo_3 + ", 300, 100000)");
-        db.execSQL("INSERT INTO tblAmmo VALUES (3, 'Atomica'," + R.drawable.ic_ammo_4 + ", 400, 100000)");
-        db.execSQL("INSERT INTO tblAmmo VALUES (4, 'Lazer',"+ R.drawable.ic_ammo_5 + ", 500, 100000)");
+        db.execSQL("INSERT INTO tblAmmo VALUES (0, 'Clasic', " + R.drawable.ic_ammo_1 + ", 10, 100000,0)");
+        db.execSQL("INSERT INTO tblAmmo VALUES (1, 'Blindada', " + R.drawable.ic_ammo_2 + ", 12, 100000,1)");
+        db.execSQL("INSERT INTO tblAmmo VALUES (2, 'Perforante'," + R.drawable.ic_ammo_3 + ", 14, 100000,1)");
+        db.execSQL("INSERT INTO tblAmmo VALUES (3, 'Atomica'," + R.drawable.ic_ammo_4 + ", 16, 100000,1)");
+        db.execSQL("INSERT INTO tblAmmo VALUES (4, 'Lazer',"+ R.drawable.ic_ammo_5 + ", 18, 100000,1)");
 
-        db.execSQL("INSERT INTO tblGun VALUES (0, 'GUN 1'," + R.drawable.ic_gun_1 + ", 100, 10000)");
-        db.execSQL("INSERT INTO tblGun VALUES (1, 'GUN 2'," + R.drawable.ic_gun_2 + ", 200, 10000)");
-        db.execSQL("INSERT INTO tblGun VALUES (2, 'GUN 3'," + R.drawable.ic_gun_3 + ", 300, 10000)");
-        db.execSQL("INSERT INTO tblGun VALUES (3, 'GUN 4'," + R.drawable.ic_gun_4 + ", 400, 10000)");
-        db.execSQL("INSERT INTO tblGun VALUES (4, 'GUN 5'," + R.drawable.ic_gun_5 + ", 500, 10000)");
+        db.execSQL("INSERT INTO tblGun VALUES (0, 'GUN 1'," + R.drawable.ic_gun_1 + ", 5, 10000,0)");
+        db.execSQL("INSERT INTO tblGun VALUES (1, 'GUN 2'," + R.drawable.ic_gun_2 + ", 6, 10000,1)");
+        db.execSQL("INSERT INTO tblGun VALUES (2, 'GUN 3'," + R.drawable.ic_gun_3 + ", 7, 10000,1)");
+        db.execSQL("INSERT INTO tblGun VALUES (3, 'GUN 4'," + R.drawable.ic_gun_4 + ", 8, 10000,1)");
+        db.execSQL("INSERT INTO tblGun VALUES (4, 'GUN 5'," + R.drawable.ic_gun_5 + ", 9, 10000,1)");
     }
 
     public ArrayList<Nave> getNaves() {
@@ -91,8 +92,9 @@ public class MiDBHelper extends SQLiteOpenHelper {
                 "recurso",
                 "blindaje",
                 "vida",
-                "cadencia",
-                "precio"
+                "velocidad",
+                "precio",
+                "estado"
         };
         Cursor cursor = db.query(TBL_NAVE, columns, null, null, null, null, null);
         if (cursor.moveToFirst()) {
@@ -104,8 +106,9 @@ public class MiDBHelper extends SQLiteOpenHelper {
                 int vida = cursor.getInt(4);
                 int cadencia = cursor.getInt(5);
                 int precio = cursor.getInt(6);
+                int estado = cursor.getInt(7);
 
-                Nave nave = new Nave(id, nombre, recurso, blindaje, vida, cadencia, precio);
+                Nave nave = new Nave(id, nombre, recurso, blindaje, vida, cadencia, precio, estado);
                 navesRegistradas.add(nave);
             } while (cursor.moveToNext());
         }
@@ -119,7 +122,7 @@ public class MiDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Ammo> listaAmmo = new ArrayList<>();
 
-        String[] columnas = {"id", "nombre", "recurso", "damage", "precio"};
+        String[] columnas = {"id", "nombre", "recurso", "damage", "precio", "estado"};
         Cursor cursor = db.query(TBL_AMMO, columnas, null, null, null, null, null);
 
         while (cursor.moveToNext()) {
@@ -128,8 +131,9 @@ public class MiDBHelper extends SQLiteOpenHelper {
             int recurso = cursor.getInt(2);
             int damage = cursor.getInt(3);
             int precio = cursor.getInt(4);
+            int estado = cursor.getInt(5);
 
-            listaAmmo.add(new Ammo(id, nombre, recurso, damage, precio));
+            listaAmmo.add(new Ammo(id, nombre, recurso, damage, precio, estado));
         }
 
         cursor.close();
@@ -139,7 +143,7 @@ public class MiDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Gun> listaAmmo = new ArrayList<>();
 
-        String[] columnas = {"id", "nombre", "recurso", "damage", "precio"};
+        String[] columnas = {"id", "nombre", "recurso", "damage", "precio", "estado"};
         Cursor cursor = db.query(TBL_GUN, columnas, null, null, null, null, null);
 
         while (cursor.moveToNext()) {
@@ -148,8 +152,9 @@ public class MiDBHelper extends SQLiteOpenHelper {
             int recurso = cursor.getInt(2);
             int damage = cursor.getInt(3);
             int precio = cursor.getInt(4);
+            int estado = cursor.getInt(5);
 
-            listaAmmo.add(new Gun(id, nombre, recurso, damage, precio));
+            listaAmmo.add(new Gun(id, nombre, recurso, damage, precio, estado));
         }
 
         cursor.close();
@@ -161,7 +166,7 @@ public class MiDBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(
                 TBL_NAVE,
-                new String[]{"id", "nombre", "recurso", "blindaje", "vida", "cadencia", "precio"},
+                new String[]{"id", "nombre", "recurso", "blindaje", "vida", "velocidad", "precio", "estado"},
                 "id = ?",
                 new String[]{String.valueOf(id)},
                 null,
@@ -180,7 +185,8 @@ public class MiDBHelper extends SQLiteOpenHelper {
                 cursor.getInt(3),
                 cursor.getInt(4),
                 cursor.getInt(5),
-                cursor.getInt(6)
+                cursor.getInt(6),
+                cursor.getInt(7)
         );
 
         cursor.close();
@@ -192,7 +198,7 @@ public class MiDBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(
                 TBL_AMMO,
-                new String[]{"id", "nombre", "recurso", "damage", "precio"},
+                new String[]{"id", "nombre", "recurso", "damage", "precio", "estado"},
                 "id = ?",
                 new String[]{String.valueOf(id)},
                 null,
@@ -209,7 +215,8 @@ public class MiDBHelper extends SQLiteOpenHelper {
                 cursor.getString(1),
                 cursor.getInt(2),
                 cursor.getInt(3),
-                cursor.getInt(4)
+                cursor.getInt(4),
+                cursor.getInt(5)
         );
 
         cursor.close();
@@ -221,7 +228,7 @@ public class MiDBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(
                 TBL_GUN,
-                new String[]{"id", "nombre", "recurso", "damage", "precio"},
+                new String[]{"id", "nombre", "recurso", "damage", "precio", "estado"},
                 "id = ?",
                 new String[]{String.valueOf(id)},
                 null,
@@ -238,7 +245,8 @@ public class MiDBHelper extends SQLiteOpenHelper {
                 cursor.getString(1),
                 cursor.getInt(2),
                 cursor.getInt(3),
-                cursor.getInt(4)
+                cursor.getInt(4),
+                cursor.getInt(5)
         );
 
         cursor.close();
