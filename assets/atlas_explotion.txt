@@ -1,0 +1,48 @@
+
+atlas_explotion.png
+size: 314, 68
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+ex1
+  rotate: false
+  xy: 54, 4
+  size: 50, 62
+  orig: 50, 62
+  offset: 0, 0
+  index: -1
+ex2
+  rotate: false
+  xy: 158, 7
+  size: 50, 59
+  orig: 50, 59
+  offset: 0, 0
+  index: -1
+ex3
+  rotate: false
+  xy: 2, 2
+  size: 50, 64
+  orig: 50, 64
+  offset: 0, 0
+  index: -1
+ex4
+  rotate: false
+  xy: 262, 20
+  size: 50, 46
+  orig: 50, 46
+  offset: 0, 0
+  index: -1
+ex5
+  rotate: false
+  xy: 106, 7
+  size: 50, 59
+  orig: 50, 59
+  offset: 0, 0
+  index: -1
+ex6
+  rotate: false
+  xy: 210, 14
+  size: 50, 52
+  orig: 50, 52
+  offset: 0, 0
+  index: -1

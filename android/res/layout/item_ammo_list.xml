@@ -11,23 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
+
+        <ImageView
             android:id="@+id/crselected"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            app:cardBackgroundColor="@color/red"
-            app:cardCornerRadius="128dp">
+            android:scaleType="fitXY"
+            android:src="@drawable/btn_cir_purple"/>
 
-            <ImageView
-                android:id="@+id/lvammo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:src="@drawable/ic_ammo_1"/>
-
-        </androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/lvammo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_ammo_1"/>
 
     </FrameLayout>
 </LinearLayout>

@@ -6,14 +6,16 @@
     android:layout_width="110dp"
     android:layout_height="150dp"
     android:layout_margin="5dp"
+    app:cardElevation="20dp"
+    android:elevation="20dp"
     app:cardBackgroundColor="@color/black"
-    app:cardElevation="4dp"
     app:cardCornerRadius="10dp">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardElevation="4dp"
         app:cardCornerRadius="10dp"
+        app:cardElevation="20dp"
+        android:elevation="20dp"
         android:layout_margin="5dp">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,9 +31,9 @@
                 android:id="@+id/tvnombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray"
+                android:background="@color/purple_ligtn"
                 android:text="nombre"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"

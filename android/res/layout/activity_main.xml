@@ -13,7 +13,7 @@
         android:paddingHorizontal="10dp"
         android:paddingVertical="5dp"
         android:gravity="center_vertical"
-        android:background="@color/black"
+        android:background="@color/purple"
         android:layout_alignParentTop="true">
 
         <ImageButton
@@ -30,52 +30,73 @@
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
             android:adjustViewBounds="true"
-            android:background="@drawable/rectangulo_gray"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/frm_rec_purple"
             android:src="@drawable/ic_config" />
+
         <ImageButton
             android:id="@+id/btnlogros"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_logro"
-            android:background="@drawable/rectangulo_gray"
-            android:layout_margin="5dp"
-            android:adjustViewBounds="true"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/btnconfig"/>
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@id/btnconfig"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:background="@drawable/frm_rec_purple"
+            android:src="@drawable/ic_logro" />
+
         <ImageButton
             android:id="@+id/btncreditos"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_creditos"
-            android:background="@drawable/rectangulo_gray"
-            android:layout_margin="5dp"
-            android:adjustViewBounds="true"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/btnlogros"/>
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@id/btnlogros"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:background="@drawable/frm_rec_purple"
+            android:src="@drawable/ic_creditos" />
+
         <ImageButton
             android:id="@+id/btnhelp"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_help"
-            android:background="@drawable/rectangulo_gray"
-            android:layout_margin="5dp"
-            android:adjustViewBounds="true"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/btncreditos"/>
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@id/btncreditos"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:background="@drawable/frm_rec_purple"
+            android:src="@drawable/ic_help" />
 
         <TextView
             android:id="@+id/tvCoins"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:minWidth="100dp"
-            android:background="@drawable/rectangulo_gray"
+            android:background="@drawable/frm_monedas"
             android:padding="5dp"
             android:paddingRight="5dp"
             android:drawableLeft="@drawable/ic_money"
+            android:drawableTint="#FFE53B"
             android:drawablePadding="5dp"
             android:text="10000"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:gravity="end|center_vertical"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -86,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_below="@id/contmenu"
-        android:background="@color/red"/>
+        android:background="@color/purple_acent"/>
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
@@ -98,60 +119,45 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_above="@id/contAcciones"
-        android:background="@color/red"/>
+        android:background="@color/purple_acent"/>
     <LinearLayout
         android:id="@+id/contAcciones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/black"
-        android:paddingHorizontal="50dp"
+        android:background="@color/purple"
+        android:paddingHorizontal="20dp"
         android:layout_alignParentBottom="true">
-        <LinearLayout
+        <ImageView
             android:id="@+id/btnpuntaje"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_margin="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:background="@drawable/rectangulo_gray">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_score"/>
-        </LinearLayout>
-        <LinearLayout
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:padding="20dp"
+            android:src="@drawable/ic_score"
+            android:background="@drawable/frm_rec_purple"/>
+        <ImageView
             android:id="@+id/btnplay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_margin="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:background="@drawable/rectangulo_gray">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_home"/>
-        </LinearLayout>
-        <LinearLayout
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:padding="20dp"
+            android:src="@drawable/ic_home"
+            android:background="@drawable/frm_rec_purple"/>
+        <ImageView
             android:id="@+id/btngarage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_margin="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:background="@drawable/rectangulo_gray">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_garage"/>
-        </LinearLayout>
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:padding="20dp"
+            android:src="@drawable/ic_garaje"
+            android:background="@drawable/frm_rec_purple"/>
 
     </LinearLayout>
 </RelativeLayout>

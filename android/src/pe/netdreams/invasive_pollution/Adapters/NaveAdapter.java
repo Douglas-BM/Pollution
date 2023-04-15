@@ -50,9 +50,9 @@ public class NaveAdapter extends RecyclerView.Adapter<NaveAdapter.ViewHolder> {
         this.equipado = SharedPreferencesManager.getIntValue(ctx, Constans.NAVE_SET);
 
         if(equipado == mValues.get(position).getId()){
-            holder.content.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.red));
+            holder.content.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.orange));
         }else {
-            holder.content.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.gray));
+            holder.content.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.purple_acent));
         }
 
         holder.ivnave.setImageResource(mValues.get(position).getRecurso());

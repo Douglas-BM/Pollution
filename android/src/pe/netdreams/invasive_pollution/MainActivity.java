@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int STATE_IN = 2;
     public static final int STATE_PLAY = 3;
     public static int STATE = STATE_IN;
-    private LinearLayout btnpuntaje, btnplay, btngarage;
+    private ImageView btnpuntaje, btnplay, btngarage;
     private FrameLayout fragment_container;
     private TextView tvCoins;
 
@@ -58,9 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btngarage = findViewById(R.id.btngarage);
         btngarage.setOnClickListener(this);
 
-        btnpuntaje.setBackgroundResource(R.drawable.rectangulo_gray);
-        btnplay.setBackgroundResource(R.drawable.rectangulo_gray_dark);
-        btngarage.setBackgroundResource(R.drawable.rectangulo_gray);
+        btnpuntaje.setBackgroundResource(R.drawable.frm_rec_purple);
+        btnplay.setBackgroundResource(R.drawable.frm_rec_orange);
+        btngarage.setBackgroundResource(R.drawable.frm_rec_purple);
 
         setMenu(new frg_home());
     }
@@ -94,24 +95,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
+
         switch (v.getId()){
             case R.id.btnpuntaje:{
                 setMenu(new frg_puntaje());
-                btnpuntaje.setBackgroundResource(R.drawable.rectangulo_gray_dark);
-                btnplay.setBackgroundResource(R.drawable.rectangulo_gray);
-                btngarage.setBackgroundResource(R.drawable.rectangulo_gray);
+                btnpuntaje.setBackgroundResource(R.drawable.frm_rec_orange);
+                btnplay.setBackgroundResource(R.drawable.frm_rec_purple);
+                btngarage.setBackgroundResource(R.drawable.frm_rec_purple);
             }break;
             case R.id.btnplay:{
                 setMenu(new frg_home());
-                btnpuntaje.setBackgroundResource(R.drawable.rectangulo_gray);
-                btnplay.setBackgroundResource(R.drawable.rectangulo_gray_dark);
-                btngarage.setBackgroundResource(R.drawable.rectangulo_gray);
+                btnpuntaje.setBackgroundResource(R.drawable.frm_rec_purple);
+                btnplay.setBackgroundResource(R.drawable.frm_rec_orange);
+                btngarage.setBackgroundResource(R.drawable.frm_rec_purple);
             }break;
             case R.id.btngarage:{
                 setMenu(new frg_garage());
-                btnpuntaje.setBackgroundResource(R.drawable.rectangulo_gray);
-                btnplay.setBackgroundResource(R.drawable.rectangulo_gray);
-                btngarage.setBackgroundResource(R.drawable.rectangulo_gray_dark);
+                btnpuntaje.setBackgroundResource(R.drawable.frm_rec_purple);
+                btnplay.setBackgroundResource(R.drawable.frm_rec_purple);
+                btngarage.setBackgroundResource(R.drawable.frm_rec_orange);
             }break;
             case R.id.tvCoins:{
 

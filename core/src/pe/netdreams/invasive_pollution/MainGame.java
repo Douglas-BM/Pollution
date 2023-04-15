@@ -1,5 +1,8 @@
 package pe.netdreams.invasive_pollution;
 
+import static pe.netdreams.invasive_pollution.Models.Player.x;
+import static pe.netdreams.invasive_pollution.Models.Player.y;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -9,6 +12,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,7 +24,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -90,8 +96,8 @@ public class MainGame extends ApplicationAdapter {
 	public OrthographicCamera oCam;
 	private static final GlyphLayout glyphLayout = new GlyphLayout();
 	private Music music;
-
-
+	float stateTime = 0f;
+	Animation<Texture> animation_ex;
 	public MainGame(int nave, int ammo, int gun, int nave_blindaje, float nave_speed, int nave_hp, int nave_damage, int currCoins, int currScore, int currLevel, float volume) {
 		this.nave = nave;
 		this.ammo = ammo;
@@ -171,7 +177,7 @@ public class MainGame extends ApplicationAdapter {
 
 		fondo = new Texture("Fondos/fondo1.jpg");
 		fondo_cont = new Texture("fondo_cont.png");
-		game_over_logo = new Texture("gameover.jpg");
+		game_over_logo = new Texture("gameover.png");
 		win_logo = new Texture("logo_win.png");
 
 		ic_corazon = new Texture("Datos/img_corazon.png");
@@ -205,15 +211,15 @@ public class MainGame extends ApplicationAdapter {
 		btnreintentar = new Sprite(new Texture("btnreintentar.png"));
 		btnreintentar.setSize(Gdx.graphics.getWidth()/2,Gdx.graphics.getWidth()/6);
 		btnreintentar.setPosition(Gdx.graphics.getWidth()/2-btnreintentar.getWidth()/2,
-				Gdx.graphics.getWidth()/3);
+				Gdx.graphics.getWidth()/2);
 
 		btnnextlevel = new Sprite(new Texture("btnnextlevel.png"));
-		btnnextlevel.setSize(Gdx.graphics.getWidth()/2,Gdx.graphics.getWidth()/6);
+		btnnextlevel.setSize(Gdx.graphics.getWidth()/1.5f,Gdx.graphics.getWidth()/6);
 		btnnextlevel.setPosition(Gdx.graphics.getWidth()/2-btnnextlevel.getWidth()/2,
-				Gdx.graphics.getWidth()/3);
+				Gdx.graphics.getWidth()/2);
 
 		btnsalir = new Sprite(new Texture("btnsalir.png"));
-		btnsalir.setSize(Gdx.graphics.getWidth()/2,Gdx.graphics.getWidth()/6);
+		btnsalir.setSize((Gdx.graphics.getWidth()/5)*2,Gdx.graphics.getWidth()/6);
 		btnsalir.setPosition(Gdx.graphics.getWidth()/2-btnsalir.getWidth()/2,
 				Gdx.graphics.getWidth()/6);
 
@@ -222,9 +228,20 @@ public class MainGame extends ApplicationAdapter {
 
 		oCam.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
 
+		Array<Texture> ani = new Array<>();
+		ani.add(new Texture("Explotion/ex1.png"));
+		ani.add(new Texture("Explotion/ex2.png"));
+		ani.add(new Texture("Explotion/ex3.png"));
+		ani.add(new Texture("Explotion/ex4.png"));
+		ani.add(new Texture("Explotion/ex5.png"));
+		ani.add(new Texture("Explotion/ex6.png"));
+
+		animation_ex = new Animation<Texture>(.2f,ani);
+
 		if(list_enemys.size() == 0)
 			createEnemys();
 	}
+
 	public void createEnemys(){
 		spacing = Gdx.graphics.getWidth()/(cant_enemys_w+1);
 		int base = Gdx.graphics.getHeight() - spacing*cant_enemys_h;
@@ -270,6 +287,7 @@ public class MainGame extends ApplicationAdapter {
 						createEnemys();
 						STATE = STATE_RUNNING;
 						sound_level_up.play(volume);
+
 					} else if (btnsalir.getBoundingRectangle().contains(temp.x, temp.y)){
 						createEnemys();
 						resetStates();
@@ -347,7 +365,7 @@ public class MainGame extends ApplicationAdapter {
 				Random random = new Random();
 				int numeroAleatorio = random.nextInt(5000) + 1;
 				if (numeroAleatorio <= 1)
-					list_ammo_enemy.add(new Ammo_enemy(enemy.position.x,enemy.position.y));
+					list_ammo_enemy.add(new Ammo_enemy(enemy.position.x + enemy.sprite.getWidth()/2,enemy.position.y));
 			}
 
 			ArrayList<Ammo_enemy> ammoToRemove = new ArrayList<>();
@@ -357,6 +375,11 @@ public class MainGame extends ApplicationAdapter {
 					if (player.sprite.getBoundingRectangle().overlaps(ammoEnemy.sprite.getBoundingRectangle())) {
 						ammoToRemove.add(ammoEnemy);
 						hp -= 50;
+
+						stateTime += Gdx.graphics.getDeltaTime();
+						Animation<Texture> textures =  animation_ex;
+						batch.draw(textures.getKeyFrame(stateTime), x, y);
+
 						sound_die.play(volume);
 					}
 				}
@@ -416,6 +439,7 @@ public class MainGame extends ApplicationAdapter {
 					Gdx.graphics.getHeight()/2 + getTextHeight(font_title, text_lvl) + spacing);
 			btnsalir.draw(batch);
 			btnnextlevel.draw(batch);
+
 		}
 		batch.end();
 	}

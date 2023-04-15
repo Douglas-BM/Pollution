@@ -14,6 +14,7 @@ public class Ammo_enemy {
     public Texture src;
     public Sprite sprite;
     public float speed_bullet;
+    public float rotation = 0f;
     public boolean exist = true;
 
     public Ammo_enemy(float x, float y) {
@@ -21,13 +22,14 @@ public class Ammo_enemy {
         src = MainGame.img_bullet_enemy;
         speed_bullet = Enemy.speed*4;
         sprite.setSize(sprite.getWidth()*.5f, sprite.getHeight()*.5f);
-        position = new Vector2(x + sprite.getWidth()/2,y + sprite.getHeight()/2);
+        position = new Vector2(x,y);
     }
 
 
     public void update(){
         if(position.y > 0) {
             position.y -= speed_bullet;
+
         }else{
             exist = false;
         }
@@ -37,6 +39,9 @@ public class Ammo_enemy {
     public void Draw(SpriteBatch batch){
         update();
         sprite.setPosition(position.x, position.y);
+        sprite.setOriginCenter();
+        rotation+=MainGame.speed_enemy_increase*50;
+        sprite.setRotation(rotation);
         sprite.draw(batch);
     }
 }

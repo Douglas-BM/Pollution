@@ -1,5 +1,6 @@
 package pe.netdreams.invasive_pollution.Fragments;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import android.app.Activity;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 import pe.netdreams.invasive_pollution.AndroidLauncher;
 import pe.netdreams.invasive_pollution.MainActivity;
@@ -29,7 +32,7 @@ public class frg_home extends Fragment {
     ImageView ivnave;
     ImageView ivammo, ivgun;
     TextView tvammo, tvgun;
-    TextView btnplay;
+    ImageView btnplay;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +50,19 @@ public class frg_home extends Fragment {
         btnplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToActivity();
+                YoYo.with(Techniques.Swing)
+                    .duration(200)
+                    .playOn(btnplay);
+
+                YoYo.with(Techniques.SlideOutUp)
+                        .duration(200)
+                        .onEnd(new YoYo.AnimatorCallback() {
+                            @Override
+                            public void call(Animator animator) {
+                                goToActivity();
+                            }
+                        })
+                        .playOn(ivnave);
             }
         });
 
@@ -59,7 +74,21 @@ public class frg_home extends Fragment {
 
         getStats();
 
+        YoYo.AnimationComposer animation = YoYo.with(Techniques.Shake)//wave
+                .duration(10000)
+                .repeat(-1);
+
+        animation.playOn(ivnave);
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        YoYo.with(Techniques.SlideInUp)
+                .duration(200)
+                .playOn(ivnave);
     }
 
     @SuppressLint("SetTextI18n")

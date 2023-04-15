@@ -74,10 +74,14 @@ public class frg_garage extends Fragment {
                                 ivnave.setImageResource(list_naves.get(position).getRecurso());
                                 YoYo.with(Techniques.SlideInLeft)
                                     .duration(500)
+                                        .onEnd(new YoYo.AnimatorCallback() {
+                                            @Override
+                                            public void call(Animator animator) {
+                                                getStats();
+                                            }
+                                        })
                                     .playOn(ivnave);
                                 rvNaves.scrollToPosition(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)-1);
-
-                                getStats();
                             }
                         })
                         .playOn(ivnave);
@@ -146,6 +150,12 @@ public class frg_garage extends Fragment {
     }
 
     public void getStats(){
+        YoYo.AnimationComposer animation = YoYo.with(Techniques.Swing)
+                .duration(500);
+        animation.playOn(tvblindage);
+        animation.playOn(tvvida);
+        animation.playOn(tvcadencia);
+        animation.playOn(tvdamage);
         tvblindage.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getBlindaje());
         tvvida.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getVida());
         tvcadencia.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getVelocidad());

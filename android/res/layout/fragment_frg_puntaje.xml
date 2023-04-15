@@ -16,17 +16,27 @@
         android:background="@drawable/rectangulo_bottom_gray_dark"
         android:gravity="center_horizontal|center_vertical">
 
-        <TextView
-            android:id="@+id/title"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangulo_bottom_red"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="PUNTAJE"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:background="@drawable/rectangulo_bottom_purple"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="5dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:padding="5dp"
+                android:text="PUNTAJE"
+                android:drawableStart="@drawable/tab_home"
+                android:paddingHorizontal="50dp"
+                android:drawablePadding="10dp"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

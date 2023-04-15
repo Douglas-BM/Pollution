@@ -43,9 +43,9 @@ public class GunAdapter extends RecyclerView.Adapter<GunAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull GunAdapter.ViewHolder holder, int position) {
         this.equipado = SharedPreferencesManager.getIntValue(ctx, Constans.GUN_SET);
         if(equipado == mValues.get(position).getId()){
-            holder.crselected.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.red));
+            holder.crselected.setImageResource(R.drawable.btn_cir_orange);
         }else {
-            holder.crselected.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.gray));
+            holder.crselected.setImageResource(R.drawable.btn_cir_purple);
         }
 
         holder.lvgun.setImageResource(mValues.get(position).getRecurso());
@@ -57,7 +57,7 @@ public class GunAdapter extends RecyclerView.Adapter<GunAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView crselected;
+        ImageView crselected;
         ImageView lvgun;
         public ViewHolder(View view) {
             super(view);
