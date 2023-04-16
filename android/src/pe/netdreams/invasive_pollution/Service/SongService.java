@@ -24,7 +24,7 @@ public class SongService extends Service {
         super.onCreate();
         double currVolume = 50;
         volume = (float) (1-(Math.log(maxVolume - currVolume) / Math.log(maxVolume)));
-        mediaPlayer = MediaPlayer.create(this, R.raw.fondo1);
+        mediaPlayer = MediaPlayer.create(this, R.raw.fondo2);
         mediaPlayer.setVolume(volume, volume);
         mediaPlayer.setLooping(true);
     }

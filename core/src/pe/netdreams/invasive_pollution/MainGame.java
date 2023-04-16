@@ -11,6 +11,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -50,12 +51,17 @@ public class MainGame extends ApplicationAdapter {
 	public static Texture img;
 	public static Texture img_bullet;
 	public static Texture img_bullet_enemy;
+	Texture barra_hp, barra_hp_r, barra_hp_g, barra_hp_o;
 	Texture fondo;
-	Texture fondo_cont;
+	Texture fondo_degradado;
+	Texture fondo_cont_top;
+	Texture fondo_cont_botton;
 	Texture game_over_logo;
 	Texture win_logo;
+	Texture logo;
 	Texture bg_text;
 	Texture ic_corazon, ic_score, ic_money, ic_level;
+	private Texture whiteTexture;
 
 	int nave, ammo, gun;
 	int currCoins;
@@ -80,6 +86,7 @@ public class MainGame extends ApplicationAdapter {
 	ShapeRenderer shapeRenderer;
 	public static FreeTypeFontGenerator generator;
 	public static BitmapFont font;
+	public static BitmapFont font_damage;
 	public static BitmapFont font_title;
 	public static BitmapFont font_resume;
 	public static float speed_enemy_increase =.05f;
@@ -92,12 +99,12 @@ public class MainGame extends ApplicationAdapter {
 	public static float nave_speed;
 	public static int nave_hp;
 	public static int nave_damage;
-	public Sprite btnreintentar, btnsalir, btnnextlevel;
+	public Sprite btnreintentar, btnsalir, btnnextlevel, btnpause, btncontinuar;
 	public OrthographicCamera oCam;
 	private static final GlyphLayout glyphLayout = new GlyphLayout();
 	private Music music;
 	float stateTime = 0f;
-	Animation<Texture> animation_ex;
+	public static Animation<Texture> animation_ex;
 	public MainGame(int nave, int ammo, int gun, int nave_blindaje, float nave_speed, int nave_hp, int nave_damage, int currCoins, int currScore, int currLevel, float volume) {
 		this.nave = nave;
 		this.ammo = ammo;
@@ -160,12 +167,14 @@ public class MainGame extends ApplicationAdapter {
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("lilitaone_regular.ttf"));
 
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 45;
+		parameter.size = 35;
 		font = generator.generateFont(parameter);
 		parameter.size = 200;
 		font_title  = generator.generateFont(parameter);
 		parameter.size = 50;
 		font_resume  = generator.generateFont(parameter);
+		parameter.size = 25;
+		font_damage  = generator.generateFont(parameter);
 		generator.dispose();
 		hec = Gdx.graphics.getWidth() / 12;
 
@@ -175,8 +184,12 @@ public class MainGame extends ApplicationAdapter {
 		img_bullet = new Texture("Ammos/ammo"+(ammo+1)+".png");
 		img_bullet_enemy = new Texture("Ammos/balaenemiga.png");
 
+		logo = new Texture("logo_game.png");
+
 		fondo = new Texture("Fondos/fondo1.jpg");
-		fondo_cont = new Texture("fondo_cont.png");
+		fondo_degradado = new Texture("Fondos/negro_60.png");
+		fondo_cont_top = new Texture("cont_stats_top.jpg");
+		fondo_cont_botton = new Texture("cont_stats_botton.jpg");
 		game_over_logo = new Texture("gameover.png");
 		win_logo = new Texture("logo_win.png");
 
@@ -188,6 +201,11 @@ public class MainGame extends ApplicationAdapter {
 		bg_text = new Texture("fondo_text.png");
 
 		win_logo = new Texture("logo_win.png");
+
+		barra_hp = new Texture("barra_white.jpg");
+		barra_hp_g = new Texture("barra_green.jpg");
+		barra_hp_o = new Texture("barra_orange.jpg");
+		barra_hp_r = new Texture("barra_red.jpg");
 
 		sound_bala = Gdx.audio.newSound(Gdx.files.internal("Sonidos/lacer0"+(ammo+1)+".mp3"));
 
@@ -211,12 +229,22 @@ public class MainGame extends ApplicationAdapter {
 		btnreintentar = new Sprite(new Texture("btnreintentar.png"));
 		btnreintentar.setSize(Gdx.graphics.getWidth()/2,Gdx.graphics.getWidth()/6);
 		btnreintentar.setPosition(Gdx.graphics.getWidth()/2-btnreintentar.getWidth()/2,
-				Gdx.graphics.getWidth()/2);
+				Gdx.graphics.getWidth()/2+hec);
+
+		btncontinuar = new Sprite(new Texture("btncontinuar.png"));
+		btncontinuar.setSize(Gdx.graphics.getWidth()/2,Gdx.graphics.getWidth()/6);
+		btncontinuar.setPosition(Gdx.graphics.getWidth()/2-btncontinuar.getWidth()/2,
+				Gdx.graphics.getWidth()/2+hec);
 
 		btnnextlevel = new Sprite(new Texture("btnnextlevel.png"));
 		btnnextlevel.setSize(Gdx.graphics.getWidth()/1.5f,Gdx.graphics.getWidth()/6);
 		btnnextlevel.setPosition(Gdx.graphics.getWidth()/2-btnnextlevel.getWidth()/2,
-				Gdx.graphics.getWidth()/2);
+				Gdx.graphics.getWidth()/2+hec);
+
+		btnpause = new Sprite(new Texture("btnpause.png"));
+		btnpause.setSize(hec*1.5f-20,hec*1.5f-20);
+		btnpause.setPosition(Gdx.graphics.getWidth() - hec*1.5f + 10,
+				Gdx.graphics.getHeight() - hec*1.5f + 10);
 
 		btnsalir = new Sprite(new Texture("btnsalir.png"));
 		btnsalir.setSize((Gdx.graphics.getWidth()/5)*2,Gdx.graphics.getWidth()/6);
@@ -236,7 +264,14 @@ public class MainGame extends ApplicationAdapter {
 		ani.add(new Texture("Explotion/ex5.png"));
 		ani.add(new Texture("Explotion/ex6.png"));
 
-		animation_ex = new Animation<Texture>(.2f,ani);
+		animation_ex = new Animation<Texture>(.15f,ani);
+
+		// Crea una textura blanca
+		Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+		pixmap.setColor(Color.GREEN);
+		pixmap.fill();
+		whiteTexture = new Texture(pixmap);
+		pixmap.dispose();
 
 		if(list_enemys.size() == 0)
 			createEnemys();
@@ -264,6 +299,9 @@ public class MainGame extends ApplicationAdapter {
 				temp.set(screenX, screenY, 0);
 				oCam.unproject(temp);
 				if(MainGame.STATE == MainGame.STATE_RUNNING){
+					if(btnpause.getBoundingRectangle().contains(temp.x, temp.y)){
+						STATE = STATE_PAUSE;
+					}
 					player.list_ammo.add(new Ammo());
 					sound_bala.play(volume);
 				}else if(MainGame.STATE == MainGame.STATE_GAME_OVER){
@@ -294,48 +332,70 @@ public class MainGame extends ApplicationAdapter {
 						saveData();
 						goBack();
 					}
+				} else if (MainGame.STATE == MainGame.STATE_PAUSE) {
+
+					if(btncontinuar.getBoundingRectangle().contains(temp.x, temp.y)){
+						STATE = STATE_RUNNING;
+					} else if (btnsalir.getBoundingRectangle().contains(temp.x, temp.y)){
+						createEnemys();
+						resetStates();
+						saveData();
+						goBack();
+					}
 				}
 				return true;
 			}
 		});
 
-		if(STATE == STATE_RUNNING){
+		if(STATE == STATE_RUNNING || STATE == STATE_PAUSE){
 			if(hp < 0){
 				STATE = STATE_GAME_OVER;
 			}
+			int margin = 10;
 
 			batch.draw(fondo, 0 , 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-			batch.draw(fondo_cont, 0 , Gdx.graphics.getHeight() - 2*hec, Gdx.graphics.getWidth(), hec*2);
+			batch.draw(fondo_cont_top, 0 , Gdx.graphics.getHeight() - hec, Gdx.graphics.getWidth()-hec*1.5f, hec);
+			batch.draw(fondo_cont_botton, 0 , 0, Gdx.graphics.getWidth(), hec);
 
-			int margin = 5;
 
 			shapeRenderer.setColor(Color.WHITE);
-
+			btnpause.draw(batch);
 			batch.draw(ic_corazon,
-					0*(Gdx.graphics.getWidth()/2)+margin , Gdx.graphics.getHeight() - hec+margin,
-					hec-margin*2, hec-margin*2);
-			font.draw(batch, ""+hp,
-					0*(Gdx.graphics.getWidth()/2)+margin+hec, Gdx.graphics.getHeight() - margin*2);
-
-
+					margin, margin,
+					hec-2*margin, hec-2*margin);
+			batch.draw(barra_hp, hec+margin, margin,
+			6*hec-2*margin, hec-2*margin);
+			float currhp = hp;
+			float hptotal = nave_hp;
+			float prct = (float)(currhp/hptotal)*100;
+			Texture frm_hp;
+			if(prct > 60){
+				frm_hp = barra_hp_g;
+			} else if (prct > 30) {
+				frm_hp = barra_hp_o;
+			}else {
+				frm_hp = barra_hp_r;
+			}
+			batch.draw(frm_hp, hec+margin, margin,
+					(6*hec-2*margin)*(prct/100), hec-2*margin);
 			batch.draw(ic_money,
-					1*(Gdx.graphics.getWidth()/2)+margin , Gdx.graphics.getHeight() - hec+margin,
+					hec * 7 + margin , margin,
 					hec-margin*2, hec-margin*2);
 			font.draw(batch, ""+REC_MONEY,
-					1*(Gdx.graphics.getWidth()/2)+margin+hec, Gdx.graphics.getHeight()  - margin*2);
+					8*hec+margin, hec/2+margin);
 
 			batch.draw(ic_score,
-					0*(Gdx.graphics.getWidth()/2)+margin , Gdx.graphics.getHeight() - 2*hec+margin,
-					hec-margin*2, hec-margin*2);
+					margin , Gdx.graphics.getHeight() - hec + margin,
+					hec-2*margin, hec-margin*2);
 			font.draw(batch, ""+SCORE,
-					0*(Gdx.graphics.getWidth()/2)+margin+hec, Gdx.graphics.getHeight() - hec - margin*2);
+					0*(Gdx.graphics.getWidth()/2)+margin+hec, Gdx.graphics.getHeight() - margin*2);
 
 			batch.draw(ic_level,
-					1*(Gdx.graphics.getWidth()/2)+margin , Gdx.graphics.getHeight() - 2*hec+margin,
+					5.25f*hec+margin , Gdx.graphics.getHeight() - hec+margin,
 					hec-margin*2, hec-margin*2);
 			font.draw(batch, ""+LEVEL,
-					1*(Gdx.graphics.getWidth()/2)+margin+hec, Gdx.graphics.getHeight() - hec - margin*2);
+					margin+hec*6.25f, Gdx.graphics.getHeight() - margin*2);
 
 			player.Draw(batch);
 			for(Enemy enemy : list_enemys){
@@ -350,7 +410,9 @@ public class MainGame extends ApplicationAdapter {
 						ammoToRemove.add(ammo);
 						player.list_ammo.removeAll(ammoToRemove);
 						sound_die.play(volume);
+						enemy.position_static = enemy.position;
 						enemy.alive = false;
+
 
 						SCORE += enemy.type;
 						REC_MONEY += enemy.type*10;
@@ -358,13 +420,12 @@ public class MainGame extends ApplicationAdapter {
 						break;
 					}
 				}
-				if(enemy.alive){
+				if(!enemy.die){
 					enemy.Draw(batch);
-					enemy.update();
 				}
 				Random random = new Random();
 				int numeroAleatorio = random.nextInt(5000) + 1;
-				if (numeroAleatorio <= 1)
+				if (numeroAleatorio <= 1 && MainGame.STATE != MainGame.STATE_PAUSE)
 					list_ammo_enemy.add(new Ammo_enemy(enemy.position.x + enemy.sprite.getWidth()/2,enemy.position.y));
 			}
 
@@ -375,10 +436,6 @@ public class MainGame extends ApplicationAdapter {
 					if (player.sprite.getBoundingRectangle().overlaps(ammoEnemy.sprite.getBoundingRectangle())) {
 						ammoToRemove.add(ammoEnemy);
 						hp -= 50;
-
-						stateTime += Gdx.graphics.getDeltaTime();
-						Animation<Texture> textures =  animation_ex;
-						batch.draw(textures.getKeyFrame(stateTime), x, y);
 
 						sound_die.play(volume);
 					}
@@ -395,7 +452,7 @@ public class MainGame extends ApplicationAdapter {
 
 					sound_game_over.play(volume);
 				}
-				if(!enemy.alive){
+				if(enemy.die){
 					ArrayList<Enemy> enemyToRemove = new ArrayList<>();
 					enemyToRemove.add(enemy);
 
@@ -406,6 +463,20 @@ public class MainGame extends ApplicationAdapter {
 			if(list_enemys.size()==0){
 				STATE = STATE_WIN;
 				sound_win.play(volume);
+			}
+			if(STATE == STATE_PAUSE){
+				batch.draw(fondo_degradado,
+						0,
+						0,
+						Gdx.graphics.getWidth(),
+						Gdx.graphics.getHeight());
+				batch.draw(logo,
+						hec*2,
+						Gdx.graphics.getHeight()-Gdx.graphics.getWidth()+hec*2,
+						Gdx.graphics.getWidth()-hec*4,
+						Gdx.graphics.getWidth()-hec*4);
+				btncontinuar.draw(batch);
+				btnsalir.draw(batch);
 			}
 		} else if (STATE == STATE_GAME_OVER) {
 			batch.draw(game_over_logo,
@@ -439,6 +510,8 @@ public class MainGame extends ApplicationAdapter {
 					Gdx.graphics.getHeight()/2 + getTextHeight(font_title, text_lvl) + spacing);
 			btnsalir.draw(batch);
 			btnnextlevel.draw(batch);
+			if(stateTime >= .3f*6)
+				stateTime = 0;
 
 		}
 		batch.end();

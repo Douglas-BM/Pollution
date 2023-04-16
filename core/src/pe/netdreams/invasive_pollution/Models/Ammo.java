@@ -27,13 +27,17 @@ public class Ammo {
     }
 
     public void update(){
-        if(position_bullet.y < Gdx.graphics.getHeight()) {
-            position_bullet.y += speed_bullet;
+
+        if(MainGame.STATE != MainGame.STATE_PAUSE) {
+            if (position_bullet.y < Gdx.graphics.getHeight()) {
+                position_bullet.y += speed_bullet;
+            }
         }
     }
 
     public void Draw(SpriteBatch batch){
-        update();
+        if(MainGame.SCORE != MainGame.STATE_PAUSE)
+            update();
         sprite_bullet.setPosition(position_bullet.x, position_bullet.y);
         sprite_bullet.draw(batch);
     }

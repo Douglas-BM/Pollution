@@ -30,13 +30,19 @@ import pe.netdreams.invasive_pollution.Utils.DataBase;
 import pe.netdreams.invasive_pollution.Utils.SharedPreferencesManager;
 import pe.netdreams.invasive_pollution.listener.RecyclerItemClickListener;
 
-public class frg_garage extends Fragment {
+public class frg_garage extends Fragment implements View.OnClickListener {
     RecyclerView rvNaves, rvAmmos, rvGuns;
     ImageView ivnave;
     TextView tvblindage, tvvida, tvcadencia, tvdamage;
+
+    TextView btnnaves;
+    TextView btnarmas;
+    TextView btnbalas;
     ArrayList<Nave> list_naves;
     ArrayList<Ammo> list_ammos;
     ArrayList<Gun> list_gun;
+    int statelis=0;
+    YoYo.AnimationComposer animationGlobal;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,6 +57,13 @@ public class frg_garage extends Fragment {
         rvNaves = view.findViewById(R.id.rvNaves);
         rvAmmos = view.findViewById(R.id.rvAmmos);
         rvGuns = view.findViewById(R.id.rvGuns);
+
+        btnnaves = view.findViewById(R.id.btnnaves);
+        btnnaves.setOnClickListener(this);
+        btnarmas = view.findViewById(R.id.btnarmas);
+        btnarmas.setOnClickListener(this);
+        btnbalas = view.findViewById(R.id.btnbalas);
+        btnbalas.setOnClickListener(this);
 
         ivnave = view.findViewById(R.id.ivnave);
 
@@ -150,17 +163,92 @@ public class frg_garage extends Fragment {
     }
 
     public void getStats(){
-        YoYo.AnimationComposer animation = YoYo.with(Techniques.Swing)
+        YoYo.AnimationComposer animationGlobal = YoYo.with(Techniques.Swing)
                 .duration(500);
-        animation.playOn(tvblindage);
-        animation.playOn(tvvida);
-        animation.playOn(tvcadencia);
-        animation.playOn(tvdamage);
+        animationGlobal.playOn(tvblindage);
+        animationGlobal.playOn(tvvida);
+        animationGlobal.playOn(tvcadencia);
+        animationGlobal.playOn(tvdamage);
         tvblindage.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getBlindaje());
         tvvida.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getVida());
         tvcadencia.setText(""+list_naves.get(SharedPreferencesManager.getIntValue(getContext(), Constans.NAVE_SET)).getVelocidad());
         tvdamage.setText(""+
                 (list_ammos.get(SharedPreferencesManager.getIntValue(getContext(), Constans.AMMO_SET)).getDamage()+
                 list_gun.get(SharedPreferencesManager.getIntValue(getContext(), Constans.GUN_SET)).getDamage()));
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        YoYo.AnimationComposer animation = YoYo.with(Techniques.SlideInRight)
+                .duration(500);
+
+        YoYo.AnimationComposer animationComposer = YoYo.with(Techniques.Swing)
+                .duration(500);
+        switch (v.getId()){
+            case R.id.btnnaves:{
+                if(statelis!=1){
+                    rvNaves.setVisibility(View.VISIBLE);
+                    rvAmmos.setVisibility(View.GONE);
+                    rvGuns.setVisibility(View.GONE);
+                    btnnaves.setBackgroundResource(R.drawable.rectangulo_top_purple_acent);
+                    btnarmas.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    btnbalas.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    statelis=1;
+                } else if (statelis == 1) {
+                    rvNaves.setVisibility(View.GONE);
+                    rvAmmos.setVisibility(View.GONE);
+                    rvGuns.setVisibility(View.GONE);
+                    btnnaves.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    btnarmas.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    btnbalas.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    statelis=0;
+                }
+                animation.playOn(rvNaves);
+                animationComposer.playOn(btnnaves);
+            }break;
+            case R.id.btnarmas:{
+                if(statelis!=2){
+                    rvNaves.setVisibility(View.GONE);
+                    rvAmmos.setVisibility(View.GONE);
+                    rvGuns.setVisibility(View.VISIBLE);
+                    btnnaves.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    btnarmas.setBackgroundResource(R.drawable.rectangulo_top_purple_acent);
+                    btnbalas.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    statelis=2;
+                } else if (statelis == 2) {
+                    rvNaves.setVisibility(View.GONE);
+                    rvAmmos.setVisibility(View.GONE);
+                    rvGuns.setVisibility(View.GONE);
+                    btnnaves.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    btnarmas.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    btnbalas.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    statelis=0;
+                }
+                animation.playOn(rvGuns);
+                animationComposer.playOn(btnarmas);
+            }break;
+            case R.id.btnbalas:{
+                if(statelis!=3){
+                    rvNaves.setVisibility(View.GONE);
+                    rvAmmos.setVisibility(View.VISIBLE);
+                    rvGuns.setVisibility(View.GONE);
+                    btnnaves.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    btnarmas.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    btnbalas.setBackgroundResource(R.drawable.rectangulo_top_purple_acent);
+                    statelis=3;
+                } else if (statelis == 3) {
+                    rvNaves.setVisibility(View.GONE);
+                    rvAmmos.setVisibility(View.GONE);
+                    rvGuns.setVisibility(View.GONE);
+                    btnnaves.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    btnarmas.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    btnbalas.setBackgroundResource(R.drawable.rectangulo_top_purple_light);
+                    statelis=0;
+                }
+                animation.playOn(rvAmmos);
+                animationComposer.playOn(btnbalas);
+            }break;
+        }
     }
 }

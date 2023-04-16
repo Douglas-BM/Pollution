@@ -42,15 +42,6 @@
                     android:textSize="25sp"
                     android:textStyle="bold" />
             </RelativeLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvNaves"
-                android:layout_width="360dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                tools:listitem="@layout/item_nave_list" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,46 +49,103 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_below="@id/contNaves"
-            android:layout_above="@id/contDetalle"
+            android:layout_above="@id/contBotones"
             android:gravity="center_vertical">
-            <LinearLayout
-                android:layout_width="70dp"
-                android:layout_height="300dp"
-                android:background="@drawable/rectangulo_rigth_purple_acent"
-                android:gravity="center_horizontal|center_vertical"
-                android:padding="10dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvGuns"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    tools:listitem="@layout/item_gun_list" />
-            </LinearLayout>
             <ImageView
                 android:id="@+id/ivnave"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_toRightOf="@id/rvAmmos"
-                android:layout_alignParentLeft="true"
                 android:src="@drawable/nave" />
-            <LinearLayout
-                android:layout_width="70dp"
-                android:layout_height="300dp"
-                android:background="@drawable/rectangulo_left_purple_acent"
-                android:gravity="center_horizontal|center_vertical"
-                android:padding="10dp">
+        </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvAmmos"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    tools:listitem="@layout/item_ammo_list" />
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/contBotones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/contListas"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/btnnaves"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Nave"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:drawableStart="@drawable/tab_naves"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="5dp"
+                android:background="@drawable/rectangulo_top_purple_light"
+                />
+            <TextView
+                android:id="@+id/btnarmas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Cañon"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:drawableStart="@drawable/tab_armas"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="5dp"
+                android:background="@drawable/rectangulo_top_purple_light"
+                />
+            <TextView
+                android:id="@+id/btnbalas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Munición"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:drawableStart="@drawable/tab_balas"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="5dp"
+                android:background="@drawable/rectangulo_top_purple_light"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contListas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/contDetalle"
+            android:background="@color/purple_acent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal|center_vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNaves"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_nave_list" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvGuns"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_gun_list" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAmmos"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_ammo_list" />
         </LinearLayout>
 
         <LinearLayout
@@ -106,7 +154,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:padding="10dp"
-            android:background="@drawable/rectangulo_top_purple_acent"
+            android:background="@color/purple_acent"
             android:gravity="center_vertical"
             android:orientation="vertical">
 

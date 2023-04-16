@@ -27,14 +27,14 @@ public class Ammo_enemy {
 
 
     public void update(){
-        if(position.y > 0) {
-            position.y -= speed_bullet;
-
-        }else{
-            exist = false;
+        if(MainGame.STATE != MainGame.STATE_PAUSE) {
+            if (position.y > 0) {
+                position.y -= speed_bullet;
+            } else {
+                exist = false;
+            }
         }
     }
-
 
     public void Draw(SpriteBatch batch){
         update();
